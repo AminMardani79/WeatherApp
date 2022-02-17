@@ -27,7 +27,12 @@ cities.forEach(city => {
 
 form.addEventListener('submit', (e) => {
     if (search.value.length == 0) {
-        alert('Please enter a city!');
+        swal({
+            title: "Wait",
+            text: "City input is empty,please enter the city name!!",
+            icon: "warning",
+            button: "Ok",
+        })
     } else {
         cityInput = search.value;
         fetchWeatherData();
@@ -138,8 +143,15 @@ function fetchWeatherData() {
                 }
             }
             app.style.opacity = "1";
-        }).catch((err) => {
-            alert("City was not found.Please Enter the correct name of the city");
+        }).catch(() => {
+            swal({
+                title: "Wait",
+                text: "City was not found.Please Enter the correct name of the city",
+                icon: "warning",
+                button: "Ok",
+            }).finally(() => {
+                app.style.opacity = "1";
+            });
         });
 }
 app.style.opacity = "1";
